@@ -1,6 +1,5 @@
 package com.mallowwww.realnpc;
 
-import com.mallowwww.example.ExampleModEntities;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.fml.loading.FMLEnvironment;
@@ -50,8 +49,6 @@ public class RealNPCMod {
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
 
-        ModActions.register(modEventBus);
-        ExampleModEntities.register(modEventBus);
 
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);

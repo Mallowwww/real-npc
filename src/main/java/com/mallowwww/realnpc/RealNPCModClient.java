@@ -1,7 +1,5 @@
 package com.mallowwww.realnpc;
 
-import com.mallowwww.example.DummyNPCRenderer;
-import com.mallowwww.example.ExampleModEntities;
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -33,6 +31,6 @@ public class RealNPCModClient {
     }
     @SubscribeEvent
     public static void makeEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerEntityRenderer(ExampleModEntities.DUMMY_NPC_TYPE.get(), DummyNPCRenderer::new);
+
     }
 }
