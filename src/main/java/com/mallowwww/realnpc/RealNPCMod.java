@@ -1,5 +1,9 @@
 package com.mallowwww.realnpc;
 
+import com.mallowwww.example.ExampleModEntities;
+import net.minecraft.client.Minecraft;
+import net.minecraft.resources.ResourceLocation;
+import net.neoforged.fml.loading.FMLEnvironment;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -34,7 +38,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 @Mod(RealNPCMod.MODID)
 public class RealNPCMod {
     // Define mod id in a common place for everything to reference
-    public static final String MODID = "examplemod";
+    public static final String MODID = "realnpc";
     // Directly reference a slf4j logger
     public static final Logger LOGGER = LogUtils.getLogger();
     public RealNPCMod(IEventBus modEventBus, ModContainer modContainer) {
@@ -46,10 +50,15 @@ public class RealNPCMod {
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
 
+        ModActions.register(modEventBus);
+        ExampleModEntities.register(modEventBus);
+
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
-
+    public static ResourceLocation path(String s) {
+        return ResourceLocation.fromNamespaceAndPath(MODID, s);
+    }
     private void commonSetup(FMLCommonSetupEvent event) {
         // Some common setup code
 

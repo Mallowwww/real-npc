@@ -1,5 +1,7 @@
 package com.mallowwww.realnpc;
 
+import com.mallowwww.example.DummyNPCRenderer;
+import com.mallowwww.example.ExampleModEntities;
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -7,6 +9,7 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 
@@ -27,5 +30,9 @@ public class RealNPCModClient {
         // Some client setup code
         RealNPCMod.LOGGER.info("HELLO FROM CLIENT SETUP");
         RealNPCMod.LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+    }
+    @SubscribeEvent
+    public static void makeEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerEntityRenderer(ExampleModEntities.DUMMY_NPC_TYPE.get(), DummyNPCRenderer::new);
     }
 }
