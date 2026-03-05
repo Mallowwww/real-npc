@@ -46,6 +46,8 @@ public class RealNPCMod {
 
         NeoForge.EVENT_BUS.register(this);
 
+        ModSpooks.register(modEventBus);
+
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
 

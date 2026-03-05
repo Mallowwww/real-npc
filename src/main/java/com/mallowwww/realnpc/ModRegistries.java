@@ -14,21 +14,20 @@ import net.neoforged.neoforge.event.tick.LevelTickEvent;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
 import net.neoforged.neoforge.registries.RegistryBuilder;
 
+import javax.swing.text.html.Option;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @EventBusSubscriber
 public class ModRegistries {
-    private static AtomicInteger numSpooksRegistered;
     private static int lastTickSpookRan = 0;
     private static int currentTickTimer = 100;
-    private static Optional<SpookEventDef> currentSpook;
+    private static Optional<SpookEventDef> currentSpook = Optional.empty();
     public static final Registry<SpookEventDef> SPOOKS = new RegistryBuilder<SpookEventDef>(ResourceKey.createRegistryKey(RealNPCMod.path("spooks")))
-            .onAdd((reg, i, key, def) -> numSpooksRegistered.incrementAndGet())
             .create();
     public static int numSpooks() {
-        return numSpooksRegistered.get();
+        return SPOOKS.size();
     }
     @SubscribeEvent
     public static void onRegisterRegistries(NewRegistryEvent event) {
@@ -40,21 +39,28 @@ public class ModRegistries {
         var num = numSpooks();
         var rand = level.random;
         var ticks = (int)level.getGameTime();
+        if (lastTickSpookRan == 0)
+            lastTickSpookRan = ticks;
         if (ticks - lastTickSpookRan >= currentTickTimer)
             currentSpook = Optional.empty();
-        if (currentSpook.isEmpty() || currentSpook.get().isCancellable())
+        if (ticks % 20 == 0) {
+//            System.out.println(numSpooks()+" "+ticks+" "+currentTickTimer);
+        }
+        if ((currentSpook.isEmpty() || currentSpook.get().isCancellable()) && numSpooks()>0)
             for (int i = 0; i < 4; i++) {
-                var randInt = rand.nextInt(0, num);
+                var randInt = rand.nextInt(num);
                 AtomicBoolean doEscape = new AtomicBoolean(false);
                 SPOOKS.getHolder(randInt).ifPresent(spookRef -> {
                     var spook = spookRef.value();
                     if (spook.canRun(level)) {
-                        if (spook.isInstant())
+                        if (spook.isInstant() && ticks - lastTickSpookRan >= currentTickTimer)
                             spook.tick(level, ticks - lastTickSpookRan);
-                        else
+                        else if (!spook.isInstant())
                             currentSpook = Optional.of(spook);
+                        else return;
                         lastTickSpookRan = ticks;
-                        currentTickTimer = rand.nextInt(100, 200); // TODO need to figure out what we want our bound to be
+                        currentTickTimer = rand.nextInt( 200)+50; // TODO need to figure out what we want our bound to be
+                        doEscape.set(true);
                     }
                 });
                 if (doEscape.get())
