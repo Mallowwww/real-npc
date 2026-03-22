@@ -26,8 +26,6 @@ public class RealNPCModClient {
     @SubscribeEvent
     static void onClientSetup(FMLClientSetupEvent event) {
         // Some client setup code
-        RealNPCMod.LOGGER.info("HELLO FROM CLIENT SETUP");
-        RealNPCMod.LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
     }
     @SubscribeEvent
     public static void makeEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
