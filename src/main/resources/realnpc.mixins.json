@@ -3,6 +3,7 @@
   "compatibilityLevel": "JAVA_17",
   "package": "com.mallowwww.realnpc.mixin",
   "client": [
-    "LevelLoadingScreenMixin"
+    "LevelLoadingScreenMixin",
+    "TutorialMixin"
   ]
 }

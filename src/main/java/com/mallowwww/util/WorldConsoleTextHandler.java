@@ -21,8 +21,8 @@ public class WorldConsoleTextHandler {
 ------------[%gONET%w]------------
 Welcome to ONET!
 Connected as: %c\\%w
-MOTD: changeme
-Server: changeme""",
+MOTD: %rchangeme
+Server: %rchangeme""",
             "[INFO] Receiving instructions, please hold.",
             "",
             "",
@@ -31,7 +31,8 @@ Server: changeme""",
             "[%yWARN%w] Possible corrupted data, filtering...",
             "",
             "[%rERROR%w] %rAttempting to resolve instruction conflict",
-            "[INFO] Loading into world [%c$%w]..."
+            "[INFO] Found world to connect to.",
+            "[INFO] Loading into world..."
     };
     private int index = 0;
     public WorldConsoleTextHandler() {

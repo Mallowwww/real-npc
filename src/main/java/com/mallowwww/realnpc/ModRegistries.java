@@ -2,6 +2,7 @@ package com.mallowwww.realnpc;
 
 import com.mallowwww.realnpc.spook.SpookEventDef;
 import com.mallowwww.realnpc.spook.SpookState;
+import com.mallowwww.realnpc.tutorial.TutorialTask;
 import com.mojang.serialization.Lifecycle;
 import net.minecraft.core.MappedRegistry;
 import net.minecraft.core.Registry;
@@ -31,12 +32,13 @@ public class ModRegistries {
 
     public static final Registry<SpookEventDef> SPOOKS = new RegistryBuilder<SpookEventDef>(ResourceKey.createRegistryKey(RealNPCMod.path("spooks")))
             .create();
+    public static final Registry<TutorialTask> TUTORIAL_TASKS = new RegistryBuilder<TutorialTask>(ResourceKey.createRegistryKey(RealNPCMod.path("tutorial_tasks"))).create();
     public static int numSpooks() {
         return SPOOKS.size();
     }
     @SubscribeEvent
     public static void onRegisterRegistries(NewRegistryEvent event) {
-        event.register(SPOOKS);
+        event.register(SPOOKS); event.register(TUTORIAL_TASKS);
     }
     @SubscribeEvent
     public static void onWorldTick(LevelTickEvent.Post event) {
