@@ -58,7 +58,7 @@ public class LevelLoadingScreenMixin extends Screen {
     @Unique
     private final List<Component> real_npc$lineList = new ArrayList<>();
     @Unique
-    private final String world = "test";
+    private String world = "test";
     @Unique
     private final WorldConsoleTextHandler textHandler = new WorldConsoleTextHandler();
     @Final
@@ -82,7 +82,13 @@ public class LevelLoadingScreenMixin extends Screen {
             this.lastNarration = time;
             this.triggerImmediateNarration(true);
         }
-
+//        if (Minecraft.getInstance().level != null) {
+//            world = Minecraft.getInstance().level.toString();
+//        }
+        if (Minecraft.getInstance().getConnection() != null) {
+            var con = Minecraft.getInstance().getConnection();
+            world = con.getLevel().toString();
+        }
 
         int midX = this.width / 2;
         int midY = this.height / 2;
@@ -103,6 +109,7 @@ public class LevelLoadingScreenMixin extends Screen {
                 real_npc$lineList.addLast(getFormattedProgress());
             }
         }
+
         if (real_npc$lineList.size() > NUM_LINES)
             real_npc$lineList.removeFirst();
 //        guiGraphics.drawCenteredString(this.font, this.getFormattedProgress(), j, k - l, 16777215);

@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class WorldConsoleTextHandler {
     private static final String username = Minecraft.getInstance().getUser().getName();
-    private static final String fakeIP = Md5Crypt.apr1Crypt(username).substring(0, 8);
+    private static final String fakeIP = Integer.toHexString(username.hashCode() * 7919 * 7873 * 7727).substring(0, 8);
 
     private static final String[] LINES = new String[] {
             "[INFO] Attempting connection...",
@@ -30,7 +30,7 @@ Server: changeme""",
             "[INFO] Downloaded instructions.",
             "[%yWARN%w] Possible corrupted data, filtering...",
             "",
-            "[%rERROR%r] Attempting to resolve instruction conflict",
+            "[%rERROR%w] %rAttempting to resolve instruction conflict",
             "[INFO] Loading into world [%c$%w]..."
     };
     private int index = 0;
