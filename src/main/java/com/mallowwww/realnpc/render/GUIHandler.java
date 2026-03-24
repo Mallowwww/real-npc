@@ -36,8 +36,12 @@ public class GUIHandler {
         if (minecraft.player == null) return;
         var uuid = minecraft.player.getUUID();
         var data = FakeTutorialHandler.DATA.get(uuid);
+        var goalRegistry = Minecraft.getInstance().getConnection().registryAccess().registryOrThrow(ModRegistries.TUTORIAL_GOALS_KEY);
+        var currentGoal = goalRegistry.get(data.getActiveGoal());
         var tasks = data.getActiveTasks();
-        guiGraphics.drawString(minecraft.font, Component.literal(data.getActiveGoal()).withStyle(ChatFormatting.BOLD), UIData.xPadding, UIData.yPadding, 0xFFFFFFFF);
+        if (goalRegistry.size()==0)
+            return;
+        guiGraphics.drawString(minecraft.font, Component.literal(currentGoal.name()).withStyle(ChatFormatting.BOLD), UIData.xPadding, UIData.yPadding, 0xFFFFFFFF);
         guiGraphics.fill(UIData.xPadding, 10 + UIData.yPadding, 150 + UIData.xPadding, 11 + UIData.yPadding, 0xFFFFFFFF);
         for (int i = 0; i < tasks.size(); i++) {
             var task = ModRegistries.TUTORIAL_TASKS.get(tasks.get(i).getFirst());

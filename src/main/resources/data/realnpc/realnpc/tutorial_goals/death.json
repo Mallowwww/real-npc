@@ -1,0 +1,8 @@
+{
+  "location": "realnpc:death",
+  "name": "Die.",
+  "tasks": [
+    "realnpc:die"
+  ],
+  "next": "realnpc:none"
+}

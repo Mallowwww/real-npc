@@ -1,0 +1,9 @@
+{
+  "location": "realnpc:gather_resources",
+  "name": "Gather Resources.",
+  "tasks": [
+    "realnpc:get_wood",
+    "realnpc:get_sand"
+  ],
+  "next": "realnpc:death"
+}

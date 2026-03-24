@@ -2,6 +2,7 @@ package com.mallowwww.realnpc;
 
 import com.mallowwww.realnpc.spook.SpookEventDef;
 import com.mallowwww.realnpc.spook.SpookState;
+import com.mallowwww.realnpc.tutorial.TutorialGoal;
 import com.mallowwww.realnpc.tutorial.TutorialTask;
 import com.mojang.serialization.Lifecycle;
 import net.minecraft.core.MappedRegistry;
@@ -13,6 +14,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.tick.LevelTickEvent;
+import net.neoforged.neoforge.registries.DataPackRegistryEvent;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
 import net.neoforged.neoforge.registries.RegistryBuilder;
 
@@ -32,9 +34,21 @@ public class ModRegistries {
 
     public static final Registry<SpookEventDef> SPOOKS = new RegistryBuilder<SpookEventDef>(ResourceKey.createRegistryKey(RealNPCMod.path("spooks")))
             .create();
-    public static final Registry<TutorialTask> TUTORIAL_TASKS = new RegistryBuilder<TutorialTask>(ResourceKey.createRegistryKey(RealNPCMod.path("tutorial_tasks"))).create();
     public static int numSpooks() {
         return SPOOKS.size();
+    }
+    public static final Registry<TutorialTask> TUTORIAL_TASKS = new RegistryBuilder<TutorialTask>(ResourceKey.createRegistryKey(RealNPCMod.path("tutorial_tasks"))).create();
+    public static final ResourceKey<Registry<TutorialGoal>> TUTORIAL_GOALS_KEY = ResourceKey.createRegistryKey(RealNPCMod.path("tutorial_goals"));
+
+    @SubscribeEvent
+    public static void registerDatapackRegistries(DataPackRegistryEvent.NewRegistry e) {
+        e.dataPackRegistry(
+                TUTORIAL_GOALS_KEY,
+                TutorialGoal.CODEC,
+                TutorialGoal.CODEC,
+                builder -> builder.sync(true)
+        );
+
     }
     @SubscribeEvent
     public static void onRegisterRegistries(NewRegistryEvent event) {

@@ -53,32 +53,36 @@ public interface TutorialTask {
             return new TutorialTask() {
                 @Override
                 public boolean successCondition(Level level, SpookState state) {
+                    if (success == null) return false;
                     return success.apply(level, state);
                 }
 
                 @Override
                 public boolean failCondition(Level level, SpookState state) {
+                    if (fail == null) return false;
                     return fail.apply(level, state);
                 }
 
                 @Override
                 public String text(SpookState state) {
-                    return text;
+                    return text != null ? text : "";
                 }
 
                 @Override
                 public ResourceLocation location() {
-                    return location;
+                    return location != null ? location : ResourceLocation.parse("realnpc:none");
                 }
 
                 @Override
                 public void start(Level level, SpookState state) {
-                    start.accept(level, state);
+                    if (start != null)
+                        start.accept(level, state);
                 }
 
                 @Override
                 public void stop(Level level, SpookState state) {
-                    stop.accept(level, state);
+                    if (stop != null)
+                        stop.accept(level, state);
                 }
             };
         }
