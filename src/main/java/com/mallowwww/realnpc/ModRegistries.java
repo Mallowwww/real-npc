@@ -2,15 +2,8 @@ package com.mallowwww.realnpc;
 
 import com.mallowwww.realnpc.spook.SpookEventDef;
 import com.mallowwww.realnpc.spook.SpookState;
-import com.mallowwww.realnpc.tutorial.TutorialGoal;
-import com.mallowwww.realnpc.tutorial.TutorialTask;
-import com.mojang.serialization.Lifecycle;
-import net.minecraft.core.MappedRegistry;
 import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.server.MinecraftServer;
-import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.tick.LevelTickEvent;
@@ -18,12 +11,9 @@ import net.neoforged.neoforge.registries.DataPackRegistryEvent;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
 import net.neoforged.neoforge.registries.RegistryBuilder;
 
-import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @EventBusSubscriber
 public class ModRegistries {
@@ -37,22 +27,14 @@ public class ModRegistries {
     public static int numSpooks() {
         return SPOOKS.size();
     }
-    public static final Registry<TutorialTask> TUTORIAL_TASKS = new RegistryBuilder<TutorialTask>(ResourceKey.createRegistryKey(RealNPCMod.path("tutorial_tasks"))).create();
-    public static final ResourceKey<Registry<TutorialGoal>> TUTORIAL_GOALS_KEY = ResourceKey.createRegistryKey(RealNPCMod.path("tutorial_goals"));
 
     @SubscribeEvent
     public static void registerDatapackRegistries(DataPackRegistryEvent.NewRegistry e) {
-        e.dataPackRegistry(
-                TUTORIAL_GOALS_KEY,
-                TutorialGoal.CODEC,
-                TutorialGoal.CODEC,
-                builder -> builder.sync(true)
-        );
 
     }
     @SubscribeEvent
     public static void onRegisterRegistries(NewRegistryEvent event) {
-        event.register(SPOOKS); event.register(TUTORIAL_TASKS);
+        event.register(SPOOKS);
     }
     @SubscribeEvent
     public static void onWorldTick(LevelTickEvent.Post event) {

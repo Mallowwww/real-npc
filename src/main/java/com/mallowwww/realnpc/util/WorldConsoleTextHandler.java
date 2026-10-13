@@ -1,13 +1,6 @@
-package com.mallowwww.util;
+package com.mallowwww.realnpc.util;
 
-import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.vehicle.Minecart;
-import org.apache.commons.codec.digest.Md5Crypt;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class WorldConsoleTextHandler {
     private static final String username = Minecraft.getInstance().getUser().getName();

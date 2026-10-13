@@ -1,6 +1,6 @@
 package com.mallowwww.realnpc.mixin;
 
-import com.mallowwww.util.WorldConsoleTextHandler;
+import com.mallowwww.realnpc.util.WorldConsoleTextHandler;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -24,8 +24,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static net.minecraft.client.gui.screens.LevelLoadingScreen.renderChunks;
 
 @Mixin(LevelLoadingScreen.class)
 public class LevelLoadingScreenMixin extends Screen {
